@@ -5,17 +5,19 @@ Shows animated wait window from the parallel thread (asynchronously) with short 
 
 Example of use (Пример использования):
 
-WpfWaitView.WaitViewInstance.Instance.ShowAsync("Простой заголовок, показывающий прогресс выполнения задачи.", this);
+WaitViewInstance.Instance.ShowAsync("Простой заголовок, показывающий прогресс выполнения задачи.", this, HealthyManSoftware.WpfWaitView.Models.Enums.WaitStyle.Style_1, Color.Red, Color.Orange);
 Thread.Sleep(5000);
-WpfWaitView.WaitViewInstance.Instance.CloseAsync();
+WaitViewInstance.Instance.CloseAsync();
 
-WpfWaitView.WaitViewInstance.Instance.ShowAsync("xyz");
+WaitViewInstance.Instance.ShowAsync("xyz", HealthyManSoftware.WpfWaitView.Models.Enums.WaitStyle.Style_2);
+WaitViewInstance.Instance.SetColors(Color.Red, Color.Orange);
 Thread.Sleep(5000);
-WpfWaitView.WaitViewInstance.Instance.SetTitle("xyz ...");
-WpfWaitView.WaitViewInstance.Instance.SetColors(Color.Blue, Color.Aquamarine);
+WaitViewInstance.Instance.SetTitle("xyz ...");
+WaitViewInstance.Instance.SetColors(Color.Blue, Color.Aquamarine);
 Thread.Sleep(5000);
-WpfWaitView.WaitViewInstance.Instance.CloseAsync();
+WaitViewInstance.Instance.CloseAsync();
 
-WpfWaitView.WaitViewInstance.Instance.ShowAsync(null, this);
+WaitViewInstance.Instance.ShowAsync(null, this, HealthyManSoftware.WpfWaitView.Models.Enums.WaitStyle.Style_3);
+WaitViewInstance.Instance.SetColors(Color.Red, Color.Orange);
 Thread.Sleep(5000);
-WpfWaitView.WaitViewInstance.Instance.CloseAsync();
+WaitViewInstance.Instance.CloseAsync();
