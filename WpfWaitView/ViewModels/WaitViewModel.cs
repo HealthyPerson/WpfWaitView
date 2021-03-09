@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HealthyManSoftware.WpfWaitView.Models;
+using HealthyManSoftware.WpfWaitView.Models.Enums;
+using HealthyManSoftware.WpfWaitView.UserControls;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using WpfWaitView.Models;
 
-namespace WpfWaitView.ViewModels
+namespace HealthyManSoftware.WpfWaitView.ViewModels
 {
     public class WaitViewModel : INotifyPropertyChanged
     {
@@ -28,6 +26,7 @@ namespace WpfWaitView.ViewModels
         public WaitViewModel(WaitViewOptions _waitOpts)
         {
             waitOpts = _waitOpts;
+            SetContent();
         }
 
 
@@ -50,6 +49,52 @@ namespace WpfWaitView.ViewModels
             set { waitOpts.HeaderCircleColor = value; OnPropertyChanged("ProgressHeaderCircleColor"); }
         }
 
+        public WaitStyle WaitStyle
+        {
+            get => waitOpts.WaitStyle;
+            set { waitOpts.WaitStyle = value; OnPropertyChanged("WaitStyle"); SetContent(); }
+        }
+
+
+        private object _fwElement;
+        public object fwElement
+        {
+            get { return _fwElement; }
+            set { _fwElement = value; OnPropertyChanged("fwElement"); }
+        }
+
+
+        private object _fwElementSub;
+        public object fwElementSub
+        {
+            get { return _fwElementSub; }
+            set { _fwElementSub = value; OnPropertyChanged("fwElementSub"); }
+        }
+
+
+        private void SetContent()
+        {
+            if (WaitStyle == WaitStyle.Style_1)
+            {
+                fwElement = new WaitContentView_Style1();
+                fwElementSub = new CircularProgressBar_Style1();
+            }
+            else if (WaitStyle == WaitStyle.Style_2)
+            {
+                fwElement = new WaitContentView_Style1();
+                fwElementSub = new CircularProgressBar_Style2();
+            }
+            else if (WaitStyle == WaitStyle.Style_3)
+            {
+                fwElement = new WaitContentView_Style2();
+                fwElementSub = new CircularProgressBar_Style1();
+            }
+            else if (WaitStyle == WaitStyle.Style_4)
+            {
+                fwElement = new WaitContentView_Style2();
+                fwElementSub = new CircularProgressBar_Style2();
+            }
+        }
 
     }
 }

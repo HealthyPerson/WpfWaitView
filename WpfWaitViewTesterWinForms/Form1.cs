@@ -1,27 +1,25 @@
 ﻿using HealthyManSoftware.WpfWaitView;
+using System;
 using System.Drawing;
 using System.Threading;
-using System.Windows;
+using System.Windows.Forms;
 
-namespace WpfWaitViewTester
+namespace WpfWaitViewTesterWinForms
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class Form1 : Form
     {
-        public MainWindow()
+        public Form1()
         {
             InitializeComponent();
         }
 
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             ShowWaitViews();
         }
 
-        
+
         private void ShowWaitViews()
         {
             WaitViewInstance.Instance.ShowAsync("Простой заголовок, показывающий прогресс выполнения задачи.", this, HealthyManSoftware.WpfWaitView.Models.Enums.WaitStyle.Style_1, Color.Red, Color.Orange);

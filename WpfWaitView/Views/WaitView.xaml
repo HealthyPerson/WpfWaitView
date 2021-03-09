@@ -1,11 +1,10 @@
-﻿<Window x:Class="WpfWaitView.Views.WaitView"
+﻿<Window x:Class="HealthyManSoftware.WpfWaitView.Views.WaitView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfWaitView.Views"
-        xmlns:uc="clr-namespace:WpfWaitView.UserControls"
         mc:Ignorable="d" 
+        Icon="/WpfWaitView;component/Resources/Icons/Main.png"
         AllowsTransparency="True" 
         Background="Transparent"
         Title="{Binding Title}" 
@@ -16,37 +15,13 @@
         ShowInTaskbar="False"
         WindowStyle="None">
     <Grid>
-        <StackPanel>
-            <Viewbox 
-                Width="150" 
-                Height="150" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center">
-                <uc:CircularProgressBar DataContext="{Binding}"/>
-            </Viewbox>
-            <Border x:Name="InfoPanel"
-                    Background="LightYellow"
-                    Margin="0,5,0,0"
-                    CornerRadius="5"
-                    MaxHeight="55"
-                    MaxWidth="150"
-                    Width="Auto"
-                    Height="Auto"
-                    >
-                <TextBlock 
-                Width="Auto"
-                Height="Auto"
-                MaxHeight="55"
-                MaxWidth="150"
-                Margin="5"
-                Background="{Binding ElementName=InfoPanel, Path=Background}" 
-                TextWrapping="Wrap" 
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                TextAlignment="Center"
-                Text="{Binding Path=Title, RelativeSource= {RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
-                />
-            </Border>
-        </StackPanel>
+        <ContentControl 
+            Name="ContentMain" 
+            DataContext="{Binding}" 
+            Content="{Binding fwElement, Mode=TwoWay}" 
+            Width="Auto" 
+            Opacity="1" 
+            Background="Transparent" 
+            />
     </Grid>
 </Window>

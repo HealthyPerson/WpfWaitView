@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace WpfWaitView.UserControls
+namespace HealthyManSoftware.WpfWaitView.UserControls
 {
     /// <summary>
     /// Логика взаимодействия для CircularProgressBar.xaml
     /// </summary>
-    public partial class CircularProgressBar : UserControl, INotifyPropertyChanged
+    public partial class CircularProgressBar_Style1 : UserControl, INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -35,16 +24,23 @@ namespace WpfWaitView.UserControls
 
 
 
-        static CircularProgressBar()
+        static CircularProgressBar_Style1()
         {
-            Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 300 });
+            try
+            {
+                Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 300 });
+            }
+            catch //(Exception ex)
+            {
+                //MessageBox.Show("1\n" + ex.Message);
+            }
 
             //CircleColorProperty = DependencyProperty.Register("CircleColor", typeof(string),
             //    typeof(CircularProgressBar),
             //    new FrameworkPropertyMetadata("", new PropertyChangedCallback(OnCircleColorChanged)));
         }
 
-        public CircularProgressBar()
+        public CircularProgressBar_Style1()
         {
             InitializeComponent();
         }

@@ -31,10 +31,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Icons\Main.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -48,6 +52,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Enums\WaitStyle.cs" />
     <Compile Include="Models\WaitViewOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -63,8 +68,17 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Services\WindowHelper.cs" />
-    <Compile Include="UserControls\CircularProgressBar.xaml.cs">
-      <DependentUpon>CircularProgressBar.xaml</DependentUpon>
+    <Compile Include="UserControls\CircularProgressBar_Style1.xaml.cs">
+      <DependentUpon>CircularProgressBar_Style1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CircularProgressBar_Style2.xaml.cs">
+      <DependentUpon>CircularProgressBar_Style2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WaitContentView_Style1.xaml.cs">
+      <DependentUpon>WaitContentView_Style1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WaitContentView_Style2.xaml.cs">
+      <DependentUpon>WaitContentView_Style2.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\WaitViewModel.cs" />
     <Compile Include="Views\WaitView.xaml.cs">
@@ -81,10 +95,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\CircleCoords.png" />
+    <Resource Include="Resources\Icons\CircleCoords.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UserControls\CircularProgressBar.xaml">
+    <Page Include="UserControls\CircularProgressBar_Style1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CircularProgressBar_Style2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WaitContentView_Style1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WaitContentView_Style2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -92,6 +118,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Main.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Main.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

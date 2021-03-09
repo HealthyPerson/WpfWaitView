@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HealthyManSoftware.WpfWaitView.Models.Enums;
+using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Windows;
+using System.Windows.Forms;
 
-namespace WpfWaitView.Models
+namespace HealthyManSoftware.WpfWaitView.Models
 {
     public class WaitViewOptions : INotifyPropertyChanged
     {
@@ -30,6 +29,15 @@ namespace WpfWaitView.Models
         }
 
 
+        private WaitStyle _WaitStyle = WaitStyle.Style_1;
+        public WaitStyle WaitStyle
+        {
+            get { return _WaitStyle; }
+            set { _WaitStyle = value; OnPropertyChanged("WaitStyle"); }
+        }
+
+         
+
         private string _CircleColor = "Aquamarine";
         public string CircleColor
         {
@@ -50,7 +58,15 @@ namespace WpfWaitView.Models
         public Window Owner
         {
             get { return _Owner; }
-            set { if (value != _Owner) _Owner = value; }
+            set { if (value != _Owner) _Owner = value; if (_Owner != null) OwnerForm = null; }
+        }
+
+
+        private Form _OwnerForm;
+        public Form OwnerForm
+        {
+            get { return _OwnerForm; }
+            set { if (value != _OwnerForm) _OwnerForm = value; if (_OwnerForm != null) Owner = null; }
         }
 
 

@@ -1,26 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HealthyManSoftware.WpfWaitView.Models;
+using HealthyManSoftware.WpfWaitView.Models.Enums;
+using HealthyManSoftware.WpfWaitView.ViewModels;
+using HealthyManSoftware.WpfWaitView.Views;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows;
-using System.Windows.Interop;
+using System.Windows.Forms;
 using System.Windows.Threading;
-using WpfWaitView.Models;
-using WpfWaitView.ViewModels;
-using WpfWaitView.Views;
 
-namespace WpfWaitView
+namespace HealthyManSoftware.WpfWaitView
 {
     public class WaitViewInstance
     {
+        #region Коснтруктор
+
         private WaitViewInstance()
         {
 
         }
 
-        #region singleton
+        #endregion Коснтруктор
+
+
+        #region Синглтон
         static object _lock = new object();
         static WaitViewInstance _instance;
 
@@ -41,7 +44,10 @@ namespace WpfWaitView
             }
 
         }
-        #endregion
+        #endregion Синглтон
+
+
+        #region Поля
 
         object _viewLock = new object();
         Thread _thread = null;
@@ -49,6 +55,13 @@ namespace WpfWaitView
         private WaitView _view;
 
         private int _counter;
+
+        #endregion Поля
+
+
+        #region Методы
+
+        #region Служебные
 
         private void Show(object waitViewOptions)
         {
@@ -64,9 +77,10 @@ namespace WpfWaitView
                     waitOpts = waitViewOptions as WaitViewOptions;
                 }
 
+
                 _view = new WaitView(new WaitViewModel(waitOpts));
 
-                if (waitOpts.Owner == null || waitOpts.OwnerHandler == IntPtr.Zero)
+                if ((waitOpts.Owner == null && waitOpts.OwnerForm == null) || waitOpts.OwnerHandler == IntPtr.Zero)
                 {
                     _view.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
                     _view.ShowInTaskbar = true;
@@ -75,28 +89,27 @@ namespace WpfWaitView
                 else
                 {
                     _view.WindowStartupLocation = System.Windows.WindowStartupLocation.Manual;
-                    if (waitOpts.Owner.Dispatcher.Thread == _view.Dispatcher.Thread)
+                 
+                    if (waitOpts.Owner != null && waitOpts.Owner.Dispatcher.Thread == _view.Dispatcher.Thread)
                     {
                         _view.Owner = waitOpts.Owner;
                     }
                     else
                     {
                         Services.WindowHelper.SetOwnerWindowMultithread(Services.WindowHelper.GetHandler(_view), waitOpts.OwnerHandler);
-                        double Left = waitOpts.OwnerLeft + waitOpts.OwnerWidht / 2.0 - _view.Width / 2.0;
-                        if (Left < 0) Left = waitOpts.OwnerLeft;
-
-                        double Top = waitOpts.OwnerTop + waitOpts.OwnerHeight / 2.0 - _view.Height / 2.0;
-                        if (Top < 0) Top = waitOpts.OwnerTop;
-
-                        _view.Left = Left;
-                        _view.Top = Top;
                     }
+
+                    double Left = waitOpts.OwnerLeft + waitOpts.OwnerWidht / 2.0 - _view.Width / 2.0;
+                    if (Left < 0) Left = waitOpts.OwnerLeft;
+
+                    double Top = waitOpts.OwnerTop + waitOpts.OwnerHeight / 2.0 - _view.Height / 2.0;
+                    if (Top < 0) Top = waitOpts.OwnerTop;
+
+                    _view.Left = Left;
+                    _view.Top = Top;
                 }
 
                 _view.ShowDialog();
-
-                //_view.Topmost = true;
-                //_view.Show();
             }
             catch (ThreadAbortException)
             { 
@@ -106,6 +119,19 @@ namespace WpfWaitView
             }
         }
 
+
+        internal bool IsAlive
+        {
+            get
+            {
+                return this._thread != null && this._thread.IsAlive;
+            }
+        }
+
+        #endregion Служебные
+
+
+        #region Перегрузки ShowAsync и CloseAsync
 
         /// <summary>
         /// Показывает окно ожидания из параллельного потока (асинхронно).
@@ -123,18 +149,40 @@ namespace WpfWaitView
                 _thread.SetApartmentState(ApartmentState.STA);
                 _thread.Name = "WpfWaitView";
                 _thread.IsBackground = true;
-                WaitViewOptions waitOpts = new WaitViewOptions() { stTitle = _stTitle, Owner = null };
+                WaitViewOptions waitOpts = new WaitViewOptions() { stTitle = _stTitle, Owner = null, OwnerForm = null, WaitStyle = WaitStyle.Style_1 };
                 _thread.Start(waitOpts);
             }
         }
 
+        /// <summary>
+        /// Показывает окно ожидания из параллельного потока (асинхронно).
+        /// </summary>
+        /// <param name="_stTitle">Заголовок окна, отображающийся посередине.</param>
+        /// <param name="_WaitStyle">Стиль окна ожидания.</param>
+        public void ShowAsync(string _stTitle, WaitStyle _WaitStyle)
+        {
+            lock (_viewLock)
+            {
+                _counter++;
+                if (_thread != null && _thread.IsAlive)
+                    return;
+                ParameterizedThreadStart ts = new ParameterizedThreadStart(Show);
+                _thread = new Thread(ts);
+                _thread.SetApartmentState(ApartmentState.STA);
+                _thread.Name = "WpfWaitView";
+                _thread.IsBackground = true;
+                WaitViewOptions waitOpts = new WaitViewOptions() { stTitle = _stTitle, Owner = null, OwnerForm = null, WaitStyle = _WaitStyle };
+                _thread.Start(waitOpts);
+            }
+        }
 
         /// <summary>
         /// Показывает окно ожидания из параллельного потока (асинхронно).
         /// </summary>
         /// <param name="_stTitle">Заголовок окна, отображающийся посередине.</param>
         /// <param name="_Owner">Родительское окно.</param>
-        public void ShowAsync(string _stTitle, Window _Owner)
+        /// <param name="_WaitStyle">Стиль окна ожидания.</param>
+        public void ShowAsync(string _stTitle, Window _Owner, WaitStyle _WaitStyle)
         {
             lock (_viewLock)
             {
@@ -167,7 +215,55 @@ namespace WpfWaitView
                     OwnerLeft = Left, 
                     OwnerTop = Top, 
                     OwnerWidht = Width, 
-                    OwnerHeight = Height 
+                    OwnerHeight = Height, 
+                    WaitStyle= _WaitStyle
+                };
+                _thread.Start(waitOpts);
+            }
+        }
+
+
+        /// <summary>
+        /// Показывает окно ожидания из параллельного потока (асинхронно).
+        /// </summary>
+        /// <param name="_stTitle">Заголовок окна, отображающийся посередине.</param>
+        /// <param name="_Owner">Родительская форма.</param>
+        /// <param name="_WaitStyle">Стиль окна ожидания.</param>
+        public void ShowAsync(string _stTitle, Form _Owner, WaitStyle _WaitStyle)
+        {
+            lock (_viewLock)
+            {
+                _counter++;
+                if (_thread != null && _thread.IsAlive)
+                    return;
+
+                IntPtr Handler = IntPtr.Zero;
+                double Left, Top, Width, Height;
+                Left = Top = Width = Height = 0;
+                if (_Owner != null)
+                {
+                    Handler = _Owner.Handle;// Services.WindowHelper.GetHandler(_Owner);
+                    Left = _Owner.Left;
+                    Top = _Owner.Top;
+                    Width = _Owner.Width;
+                    Height = _Owner.Height;
+                }
+
+                ParameterizedThreadStart ts = new ParameterizedThreadStart(Show);
+                _thread = new Thread(ts);
+                _thread.SetApartmentState(ApartmentState.STA);
+                _thread.Name = "WpfWaitView";
+                _thread.IsBackground = true;
+                WaitViewOptions waitOpts = new WaitViewOptions()
+                {
+                    stTitle = _stTitle,
+                    OwnerForm = _Owner,
+                    OwnerHandler = Handler,
+                    OwnerLeft = Left,
+                    OwnerTop = Top,
+                    OwnerWidht = Width,
+                    OwnerHeight = Height,
+                    WaitStyle = _WaitStyle
                 };
                 _thread.Start(waitOpts);
             }
@@ -179,9 +275,10 @@ namespace WpfWaitView
         /// </summary>
         /// <param name="_stTitle">Заголовок окна, отображающийся посередине.</param>
         /// <param name="_Owner">Родительское окно.</param>
+        /// <param name="_WaitStyle">Стиль окна ожидания.</param>
         /// <param name="_HeaderCircleColor">Цвет первого кружочка.</param>
         /// <param name="_CircleColor">Цвет всех остальных кружочков.</param>
-        public void ShowAsync(string _stTitle, Window _Owner, Color _HeaderCircleColor, Color _CircleColor)
+        public void ShowAsync(string _stTitle, Window _Owner, WaitStyle _WaitStyle, Color _HeaderCircleColor, Color _CircleColor)
         {
             lock (_viewLock)
             {
@@ -215,6 +312,58 @@ namespace WpfWaitView
                     OwnerTop = Top,
                     OwnerWidht = Width,
                     OwnerHeight = Height,
+                    WaitStyle = _WaitStyle,
+                    CircleColor = _CircleColor.Name,
+                    HeaderCircleColor = _HeaderCircleColor.Name
+                };
+                _thread.Start(waitOpts);
+            }
+        }
+
+
+        /// <summary>
+        /// Показывает окно ожидания из параллельного потока (асинхронно).
+        /// </summary>
+        /// <param name="_stTitle">Заголовок окна, отображающийся посередине.</param>
+        /// <param name="_Owner">Родительская форма.</param>
+        /// <param name="_WaitStyle">Стиль окна ожидания.</param>
+        /// <param name="_HeaderCircleColor">Цвет первого кружочка.</param>
+        /// <param name="_CircleColor">Цвет всех остальных кружочков.</param>
+        public void ShowAsync(string _stTitle, Form _Owner, WaitStyle _WaitStyle, Color _HeaderCircleColor, Color _CircleColor)
+        {
+            lock (_viewLock)
+            {
+                _counter++;
+                if (_thread != null && _thread.IsAlive)
+                    return;
+
+                IntPtr Handler = IntPtr.Zero;
+                double Left, Top, Width, Height;
+                Left = Top = Width = Height = 0;
+                if (_Owner != null)
+                {
+                    Handler = _Owner.Handle;// Services.WindowHelper.GetHandler(_Owner);
+                    Left = _Owner.Left;
+                    Top = _Owner.Top;
+                    Width = _Owner.Width;
+                    Height = _Owner.Height;
+                }
+
+                ParameterizedThreadStart ts = new ParameterizedThreadStart(Show);
+                _thread = new Thread(ts);
+                _thread.SetApartmentState(ApartmentState.STA);
+                _thread.Name = "WpfWaitView";
+                _thread.IsBackground = true;
+                WaitViewOptions waitOpts = new WaitViewOptions()
+                {
+                    stTitle = _stTitle,
+                    OwnerForm = _Owner,
+                    OwnerHandler = Handler,
+                    OwnerLeft = Left,
+                    OwnerTop = Top,
+                    OwnerWidht = Width,
+                    OwnerHeight = Height,
+                    WaitStyle = _WaitStyle,
                     CircleColor = _CircleColor.Name,
                     HeaderCircleColor = _HeaderCircleColor.Name
                 };
@@ -260,7 +409,6 @@ namespace WpfWaitView
                     return;
                 }
 
-                
                 while (_view == null)// || (_view != null && System.Windows.PresentationSource.FromVisual(_view) as HwndSource != null))
                 {
                     Thread.Sleep(100);
@@ -271,19 +419,13 @@ namespace WpfWaitView
                 _view = null;
 
                 this._thread.Join();
-
             }
         }
 
+        #endregion Перегрузки ShowAsync и CloseAsync
 
-        internal bool IsAlive
-        {
-            get
-            {
-                return this._thread != null && this._thread.IsAlive;
-            }
-        }
 
+        #region Изменение свойств
 
         public void SetTitle(string stNewTitle)
         {
@@ -326,6 +468,9 @@ namespace WpfWaitView
             }
         }
 
+        #endregion Изменение свойств
+
+        #endregion Методы
 
     }
 }
