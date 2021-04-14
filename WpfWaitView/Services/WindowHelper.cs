@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace HealthyManSoftware.WpfWaitView.Services
+namespace HealthyPerson.WpfWaitView.Services
 {
 
     public class WindowHelper

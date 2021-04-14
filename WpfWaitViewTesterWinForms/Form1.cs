@@ -1,4 +1,4 @@
-﻿using HealthyManSoftware.WpfWaitView;
+﻿using HealthyPerson.WpfWaitView;
 using System;
 using System.Drawing;
 using System.Threading;
@@ -22,11 +22,11 @@ namespace WpfWaitViewTesterWinForms
 
         private void ShowWaitViews()
         {
-            WaitViewInstance.Instance.ShowAsync("Простой заголовок, показывающий прогресс выполнения задачи.", this, HealthyManSoftware.WpfWaitView.Models.Enums.WaitStyle.Style_1, Color.Red, Color.Orange);
+            WaitViewInstance.Instance.ShowAsync("Простой заголовок, показывающий прогресс выполнения задачи.", this, HealthyPerson.WpfWaitView.Models.Enums.WaitStyle.Style_1, Color.Red, Color.Orange);
             Thread.Sleep(5000);
             WaitViewInstance.Instance.CloseAsync();
 
-            WaitViewInstance.Instance.ShowAsync("xyz", HealthyManSoftware.WpfWaitView.Models.Enums.WaitStyle.Style_2);
+            WaitViewInstance.Instance.ShowAsync("xyz", HealthyPerson.WpfWaitView.Models.Enums.WaitStyle.Style_2);
             WaitViewInstance.Instance.SetColors(Color.Red, Color.Orange);
             Thread.Sleep(5000);
             WaitViewInstance.Instance.SetTitle("xyz ...");
@@ -34,7 +34,7 @@ namespace WpfWaitViewTesterWinForms
             Thread.Sleep(5000);
             WaitViewInstance.Instance.CloseAsync();
 
-            WaitViewInstance.Instance.ShowAsync(null, this, HealthyManSoftware.WpfWaitView.Models.Enums.WaitStyle.Style_3);
+            WaitViewInstance.Instance.ShowAsync(null, this, HealthyPerson.WpfWaitView.Models.Enums.WaitStyle.Style_3);
             WaitViewInstance.Instance.SetColors(Color.Red, Color.Orange);
             Thread.Sleep(5000);
             WaitViewInstance.Instance.CloseAsync();

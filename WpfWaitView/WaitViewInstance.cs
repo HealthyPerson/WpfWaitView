@@ -1,7 +1,7 @@
-﻿using HealthyManSoftware.WpfWaitView.Models;
-using HealthyManSoftware.WpfWaitView.Models.Enums;
-using HealthyManSoftware.WpfWaitView.ViewModels;
-using HealthyManSoftware.WpfWaitView.Views;
+﻿using HealthyPerson.WpfWaitView.Models;
+using HealthyPerson.WpfWaitView.Models.Enums;
+using HealthyPerson.WpfWaitView.ViewModels;
+using HealthyPerson.WpfWaitView.Views;
 using System;
 using System.Drawing;
 using System.Threading;
@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Threading;
 
-namespace HealthyManSoftware.WpfWaitView
+namespace HealthyPerson.WpfWaitView
 {
     public class WaitViewInstance
     {

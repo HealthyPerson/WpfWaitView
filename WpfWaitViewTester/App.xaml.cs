@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace HealthyManSoftware.WpfWaitViewTester
+namespace HealthyPerson.WpfWaitViewTester
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml

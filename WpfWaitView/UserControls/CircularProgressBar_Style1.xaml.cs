@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-namespace HealthyManSoftware.WpfWaitView.UserControls
+namespace HealthyPerson.WpfWaitView.UserControls
 {
     /// <summary>
     /// Логика взаимодействия для CircularProgressBar.xaml

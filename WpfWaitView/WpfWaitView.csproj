@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DCFA588D-E97D-40C7-98E0-34460F1D0722}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>HealthyManSoftware.WpfWaitView</RootNamespace>
+    <RootNamespace>HealthyPerson.WpfWaitView</RootNamespace>
     <AssemblyName>WpfWaitView</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

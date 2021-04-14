@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{838FF628-CE30-4AAA-89B0-19EAB0D1927F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>HealthyManSoftware.WpfWaitViewTester</RootNamespace>
+    <RootNamespace>HealthyPerson.WpfWaitViewTester</RootNamespace>
     <AssemblyName>WpfWaitViewTester</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

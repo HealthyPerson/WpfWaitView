@@ -1,10 +1,10 @@
-﻿using HealthyManSoftware.WpfWaitView.Models.Enums;
+﻿using HealthyPerson.WpfWaitView.Models.Enums;
 using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace HealthyManSoftware.WpfWaitView.Models
+namespace HealthyPerson.WpfWaitView.Models
 {
     public class WaitViewOptions : INotifyPropertyChanged
     {

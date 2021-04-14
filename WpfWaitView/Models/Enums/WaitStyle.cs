@@ -1,5 +1,5 @@
 ﻿
-namespace HealthyManSoftware.WpfWaitView.Models.Enums
+namespace HealthyPerson.WpfWaitView.Models.Enums
 {
     /// <summary>
     /// Стиль отображения окна ожидания

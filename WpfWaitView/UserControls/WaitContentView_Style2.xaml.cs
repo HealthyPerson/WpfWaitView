@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace HealthyManSoftware.WpfWaitView.UserControls
+namespace HealthyPerson.WpfWaitView.UserControls
 {
     /// <summary>
     /// Логика взаимодействия для WaitContentView_Style2.xaml

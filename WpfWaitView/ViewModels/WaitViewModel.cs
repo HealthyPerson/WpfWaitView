@@ -1,9 +1,9 @@
-﻿using HealthyManSoftware.WpfWaitView.Models;
-using HealthyManSoftware.WpfWaitView.Models.Enums;
-using HealthyManSoftware.WpfWaitView.UserControls;
+﻿using HealthyPerson.WpfWaitView.Models;
+using HealthyPerson.WpfWaitView.Models.Enums;
+using HealthyPerson.WpfWaitView.UserControls;
 using System.ComponentModel;
 
-namespace HealthyManSoftware.WpfWaitView.ViewModels
+namespace HealthyPerson.WpfWaitView.ViewModels
 {
     public class WaitViewModel : INotifyPropertyChanged
     {

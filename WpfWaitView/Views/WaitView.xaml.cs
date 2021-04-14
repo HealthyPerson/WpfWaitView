@@ -1,7 +1,7 @@
-﻿using HealthyManSoftware.WpfWaitView.ViewModels;
+﻿using HealthyPerson.WpfWaitView.ViewModels;
 using System.Windows;
 
-namespace HealthyManSoftware.WpfWaitView.Views
+namespace HealthyPerson.WpfWaitView.Views
 {
 
 

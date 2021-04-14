@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HealthyManSoftware.WpfWaitViewTester.Properties {
+namespace HealthyPerson.WpfWaitViewTester.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("WpfWaitView")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HealthyManSoftware")]
+[assembly: AssemblyCompany("HealthyPerson")]
 [assembly: AssemblyProduct("WpfWaitView")]
-[assembly: AssemblyCopyright("Copyright © HealthyManSoftware 2021")]
+[assembly: AssemblyCopyright("Copyright © HealthyPerson 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
