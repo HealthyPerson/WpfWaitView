@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace WpfWaitViewTesterWinForms
+namespace HealthyPerson.WpfWaitViewTesterWinForms
 {
     public partial class Form1 : Form
     {

@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FB148C73-E7B9-4D1F-A5DC-7682B6A855F6}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WpfWaitViewTesterWinForms</RootNamespace>
+    <RootNamespace>HealthyPerson.WpfWaitViewTesterWinForms</RootNamespace>
     <AssemblyName>WpfWaitViewTesterWinForms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -64,6 +64,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace WpfWaitViewTesterWinForms
+namespace HealthyPerson.WpfWaitViewTesterWinForms
 {
     static class Program
     {

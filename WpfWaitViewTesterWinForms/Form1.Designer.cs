@@ -1,5 +1,5 @@
 ﻿
-namespace WpfWaitViewTesterWinForms
+namespace HealthyPerson.WpfWaitViewTesterWinForms
 {
     partial class Form1
     {
